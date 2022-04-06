@@ -1,40 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import fetchToken from '../services/API';
+import { func } from 'prop-types';
+import md5 from 'crypto-js/md5';
+import { Link } from 'react-router-dom';
+import { fetchToken } from '../services/API';
+import { loginAction } from '../actions';
 
 class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      emailInput: '',
-      nameInput: '',
+      gravatarEmail: '',
+      name: '',
       buttonDisable: true,
     };
   }
 
-  changeHandler = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    }, () => {
-      const { emailInput, nameInput } = this.state;
+  changeHandler = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value }, this.validateButton);
+  }
 
-      if (emailInput.length > 2 && nameInput.length > 2) {
-        this.setState({
-          buttonDisable: false,
-        });
-      } else {
-        this.setState({
-          buttonDisable: true,
-        });
-      }
+  validateButton = () => {
+    const { gravatarEmail, name } = this.state;
+    const TWO = 2;
+    const VALIDATION = gravatarEmail.length > TWO && name.length > TWO;
+
+    this.setState((VALIDATION) ? { buttonDisable: false } : { buttonDisable: true });
+  }
+
+  clickHandler = (e) => {
+    e.preventDefault();
+    const { fetchingToken, loginInfo, history } = this.props;
+    const { gravatarEmail, name } = this.state;
+    const hash = md5(gravatarEmail).toString();
+    const gravatarImg = `https://www.gravatar.com/avatar/${hash}`;
+
+    fetchingToken();
+    loginInfo({
+      name,
+      gravatarEmail,
+      gravatarImg,
     });
+
+    history.push('/game');
   }
 
   render() {
-    const { emailInput, nameInput, buttonDisable } = this.state;
-    const { fetchingToken } = this.props;
+    const { gravatarEmail, name, buttonDisable } = this.state;
     return (
       <form>
         <label htmlFor="email">
@@ -43,8 +56,8 @@ class Home extends React.Component {
             type="text"
             id="email"
             data-testid="input-gravatar-email"
-            name="emailInput"
-            value={ emailInput }
+            name="gravatarEmail"
+            value={ gravatarEmail }
             onChange={ this.changeHandler }
           />
         </label>
@@ -55,22 +68,20 @@ class Home extends React.Component {
             type="text"
             id="senha"
             data-testid="input-player-name"
-            name="nameInput"
-            value={ nameInput }
+            name="name"
+            value={ name }
             onChange={ this.changeHandler }
           />
         </label>
 
-        <Link to="/game">
-          <button
-            type="submit"
-            data-testid="btn-play"
-            disabled={ buttonDisable }
-            onClick={ () => fetchingToken() }
-          >
-            Entrar
-          </button>
-        </Link>
+        <button
+          type="submit"
+          data-testid="btn-play"
+          disabled={ buttonDisable }
+          onClick={ this.clickHandler }
+        >
+          Entrar
+        </button>
 
         <Link to="/config">
           <button
@@ -85,12 +96,14 @@ class Home extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchingToken: () => dispatch(fetchToken()),
-});
+const mapDispatchToProps = {
+  fetchingToken: fetchToken,
+  loginInfo: loginAction,
+};
 
 Home.propTypes = {
-  fetchingToken: PropTypes.func.isRequired,
-};
+  fetchingToken: func,
+  history: func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Home);
