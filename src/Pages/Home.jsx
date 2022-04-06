@@ -1,44 +1,87 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import fetchToken from '../services/API';
 
-export default class Home extends Component {
+class Home extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: '',
-      email: '',
+      emailInput: '',
+      nameInput: '',
+      buttonDisable: true,
     };
   }
 
-  onInputChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState = ({ [name]: value });
+  changeHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    }, () => {
+      const { emailInput, nameInput } = this.state;
+
+      if (emailInput.length > 2 && nameInput.length > 2) {
+        this.setState({
+          buttonDisable: false,
+        });
+      } else {
+        this.setState({
+          buttonDisable: true,
+        });
+      }
+    });
   }
 
   render() {
-    const { name, email } = this.state;
+    const { emailInput, nameInput, buttonDisable } = this.state;
+    const { fetchingToken } = this.props;
     return (
       <form>
-        <label htmlFor="name">
+        <label htmlFor="email">
+          Email do Gravatar:
           <input
-            value={ name }
             type="text"
-            name="name"
+            id="email"
+            data-testid="input-gravatar-email"
+            name="emailInput"
+            value={ emailInput }
+            onChange={ this.changeHandler }
           />
         </label>
-        <label htmlFor="name">
+
+        <label htmlFor="senha">
+          Nome:
           <input
-            value={ email }
             type="text"
-            name="email"
+            id="senha"
+            data-testid="input-player-name"
+            name="nameInput"
+            value={ nameInput }
+            onChange={ this.changeHandler }
           />
         </label>
-        <button
-          onClick=""
-          type="submit"
-        >
-          Play
-        </button>
+
+        <Link to="/game">
+          <button
+            type="submit"
+            data-testid="btn-play"
+            disabled={ buttonDisable }
+            onClick={ () => fetchingToken() }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchingToken: () => dispatch(fetchToken()),
+});
+
+Home.propTypes = {
+  fetchingToken: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Home);

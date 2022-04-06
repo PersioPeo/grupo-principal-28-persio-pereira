@@ -1,18 +1,23 @@
+import { getToken } from '../actions';
+
 const TOKEN_ENDPOINT = 'https://opentdb.com/api_token.php?command=request';
-const QUESTIONS_ENDPOINT = 'https://opentdb.com/api.php?amount=5&token=';
-const AUTHENTICATION_ENDPOINT = 'https://www.gravatar.com/avatar/';
+// const QUESTIONS_ENDPOINT = 'https://opentdb.com/api.php?amount=5&token=';
+// const AUTHENTICATION_ENDPOINT = 'https://www.gravatar.com/avatar/';
 
-export const fetchToken = async () => {
-  try {
-    const response = await fetch(TOKEN_ENDPOINT);
-    const data = response.json();
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
+export default function fetchToken() {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(TOKEN_ENDPOINT);
+      const data = await response.json();
+      console.log(data);
+      dispatch(getToken(data.token));
+    } catch (error) {
+      return error;
+    }
+  };
+}
 
-export const fetchQuestions = async (token) => {
+/* export const fetchQuestions = async (token) => {
   try {
     const response = await fetch(`${QUESTIONS_ENDPOINT}${token}`);
     const data = response.json();
@@ -30,4 +35,4 @@ export const fetchGravatar = async (hash) => {
   } catch (error) {
     return error;
   }
-};
+}; */
