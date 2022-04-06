@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import md5 from 'crypto-js/md5';
+import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/API';
 import { loginAction } from '../actions';
 
@@ -82,6 +83,14 @@ class Home extends React.Component {
           Entrar
         </button>
 
+        <Link to="/config">
+          <button
+            type="button"
+            data-testid="btn-settings"
+          >
+            Configurações
+          </button>
+        </Link>
       </form>
     );
   }
