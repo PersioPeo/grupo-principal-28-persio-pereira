@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import fetchToken from '../services/API';
 
 class Home extends React.Component {
@@ -78,5 +79,9 @@ class Home extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchingToken: () => dispatch(fetchToken()),
 });
+
+Home.propTypes = {
+  fetchingToken: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Home);

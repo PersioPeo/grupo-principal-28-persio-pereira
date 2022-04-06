@@ -1,8 +1,8 @@
 import { getToken } from '../actions';
 
 const TOKEN_ENDPOINT = 'https://opentdb.com/api_token.php?command=request';
-const QUESTIONS_ENDPOINT = 'https://opentdb.com/api.php?amount=5&token=';
-const AUTHENTICATION_ENDPOINT = 'https://www.gravatar.com/avatar/';
+// const QUESTIONS_ENDPOINT = 'https://opentdb.com/api.php?amount=5&token=';
+// const AUTHENTICATION_ENDPOINT = 'https://www.gravatar.com/avatar/';
 
 export default function fetchToken() {
   return async (dispatch) => {
