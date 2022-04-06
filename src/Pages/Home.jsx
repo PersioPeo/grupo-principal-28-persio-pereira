@@ -74,7 +74,7 @@ class Home extends React.Component {
 
         <Link to="/config">
           <button
-            type="submit"
+            type="button"
             data-testid="btn-settings"
           >
             Configurações
