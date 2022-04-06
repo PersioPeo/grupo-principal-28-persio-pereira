@@ -71,6 +71,15 @@ class Home extends React.Component {
             Entrar
           </button>
         </Link>
+
+        <Link to="/config">
+          <button
+            type="submit"
+            data-testid="btn-settings"
+          >
+            Configurações
+          </button>
+        </Link>
       </form>
     );
   }
