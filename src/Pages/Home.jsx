@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import fetchToken from '../services/API';
 
 class Home extends React.Component {
   constructor() {
@@ -31,6 +33,7 @@ class Home extends React.Component {
 
   render() {
     const { emailInput, nameInput, buttonDisable } = this.state;
+    const { fetchingToken } = this.props;
     return (
       <form>
         <label htmlFor="email">
@@ -62,6 +65,7 @@ class Home extends React.Component {
             type="submit"
             data-testid="btn-play"
             disabled={ buttonDisable }
+            onClick={ () => fetchingToken() }
           >
             Entrar
           </button>
@@ -71,4 +75,8 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+  fetchingToken: () => dispatch(fetchToken()),
+});
+
+export default connect(null, mapDispatchToProps)(Home);
