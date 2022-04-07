@@ -17,4 +17,11 @@ class Answers extends Component {
   }
 }
 
+Answers.propTypes = {
+  incorrectAnswers: object,
+  correctAnswer: string,
+  question: string,
+  category: string,
+}.isRequired;
+
 export default Answers;

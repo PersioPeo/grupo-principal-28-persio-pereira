@@ -28,4 +28,9 @@ class Alternatives extends Component {
   }
 }
 
+Alternatives.propTypes = {
+  incorrectAnswers: object,
+  correctAnswer: string,
+}.isRequired;
+
 export default Alternatives;

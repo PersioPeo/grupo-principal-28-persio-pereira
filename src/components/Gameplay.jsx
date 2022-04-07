@@ -37,6 +37,12 @@ class Gameplay extends Component {
   }
 }
 
+Gameplay.propTypes = {
+  token: string,
+  question: object,
+  loading: boolean,
+}.isRequired;
+
 const mapStateToProps = (payload) => ({
   token: payload.token,
   questions: payload.getQuestions.questions.results,
