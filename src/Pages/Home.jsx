@@ -16,6 +16,11 @@ class Home extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { fetchingToken } = this.props;
+    fetchingToken();
+  }
+
   changeHandler = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value }, this.validateButton);
@@ -36,7 +41,6 @@ class Home extends React.Component {
     const hash = md5(gravatarEmail).toString();
     const gravatarImg = `https://www.gravatar.com/avatar/${hash}`;
 
-    fetchingToken();
     loginInfo({
       name,
       gravatarEmail,
