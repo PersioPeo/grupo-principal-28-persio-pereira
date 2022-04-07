@@ -17,13 +17,8 @@ class Gameplay extends Component {
 
   componentDidMount() {
     const { token, fetchingQuestion } = this.props;
-    const ONE_SECOND = 1000;
-
     fetchingQuestion(token);
-
-    this.intervalId = setInterval(() => {
-      this.setState((prev) => ({ timer: prev.timer - 1 }));
-    }, ONE_SECOND);
+    this.startTimer();
   }
 
   componentDidUpdate(props, prevState) {
@@ -32,18 +27,26 @@ class Gameplay extends Component {
 
   stopTimer = (prevState) => {
     const ZERO = 0;
-    const { timer, isDisabled } = this.state;
+    const { timer, stop } = this.state;
     if (prevState.timer !== timer && timer === ZERO) {
       clearInterval(this.intervalId);
     }
-    if (isDisabled) {
+    if (stop) {
       clearInterval(this.intervalId);
     }
   }
 
+  startTimer() {
+    const ONE_SECOND = 1000;
+
+    this.intervalId = setInterval(() => {
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
+    }, ONE_SECOND);
+  }
+
   render() {
-    const { questions, loading } = this.props;
-    const { questionIndex, timer } = this.state;
+    const { questions, loading, timer } = this.props;
+    const { questionIndex } = this.state;
     return (
       <>
         <p>{timer}</p>
@@ -59,6 +62,7 @@ class Gameplay extends Component {
                 incorrectAnswers={ element.incorrect_answers }
               />))}
         </div>
+
       </>
     );
   }
