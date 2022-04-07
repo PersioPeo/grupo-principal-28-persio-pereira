@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
+import Gameplay from '../components/Gameplay';
 
 export default class Game extends Component {
   constructor() {
@@ -7,7 +8,7 @@ export default class Game extends Component {
     this.state = {
       timer: 30,
       isDisabled: false,
-      // disable: false,
+      disable: false,
     };
   }
 
@@ -27,10 +28,10 @@ handleTimer = (prevState) => {
   const { timer, isDisabled } = this.state;
   if (prevState.timer !== timer && timer === ZERO) {
     clearInterval(this.intervalId);
-    // this.setState(() => ({ disable: true }));
-  }
-  if (isDisabled) {
-    clearInterval(this.intervalId);
+    this.setState(() => ({ disable: true }));
+    if (isDisabled) {
+      clearInterval(this.intervalId);
+    }
   }
 }
 
@@ -39,6 +40,7 @@ render() {
   return (
     <>
       <Header />
+      <Gameplay />
       <p>{timer}</p>
       <button
         type="button"
