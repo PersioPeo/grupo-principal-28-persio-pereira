@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Alternatives from './Alternatives';
 
 class Answers extends Component {
@@ -18,10 +19,10 @@ class Answers extends Component {
 }
 
 Answers.propTypes = {
-  incorrectAnswers: object,
-  correctAnswer: string,
-  question: string,
-  category: string,
+  incorrectAnswers: PropTypes.object,
+  correctAnswer: PropTypes.string,
+  question: PropTypes.string,
+  category: PropTypes.string,
 }.isRequired;
 
 export default Answers;

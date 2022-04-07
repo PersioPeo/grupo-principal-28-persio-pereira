@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import shuffle from '../../services/shuffle';
 
 class Alternatives extends Component {
@@ -29,8 +30,8 @@ class Alternatives extends Component {
 }
 
 Alternatives.propTypes = {
-  incorrectAnswers: object,
-  correctAnswer: string,
+  incorrectAnswers: PropTypes.object,
+  correctAnswer: PropTypes.string,
 }.isRequired;
 
 export default Alternatives;

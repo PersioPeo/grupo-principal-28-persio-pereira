@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchQuestions } from '../services/API';
 import Answers from './GameplayComponents/Answers';
 
@@ -38,9 +39,9 @@ class Gameplay extends Component {
 }
 
 Gameplay.propTypes = {
-  token: string,
-  question: object,
-  loading: boolean,
+  token: PropTypes.string,
+  question: PropTypes.object,
+  loading: PropTypes.bool,
 }.isRequired;
 
 const mapStateToProps = (payload) => ({
