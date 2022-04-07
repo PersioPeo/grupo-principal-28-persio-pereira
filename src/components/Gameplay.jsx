@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchQuestions } from '../services/API';
 import Answers from './GameplayComponents/Answers';
+import { timerAction } from '../actions';
 
 class Gameplay extends Component {
   constructor() {
     super();
-
     this.state = {
       questionIndex: 0,
       timer: 30,
-      isDisabled: false,
     };
   }
 
@@ -31,13 +30,15 @@ class Gameplay extends Component {
   }
 
   stopTimer = (prevState) => {
+    const { dispatch, stop } = this.props;
     const ZERO = 0;
-    const { timer, isDisabled } = this.state;
+    const { timer } = this.state;
     if (prevState.timer !== timer && timer === ZERO) {
       clearInterval(this.intervalId);
     }
-    if (isDisabled) {
+    if (stop) {
       clearInterval(this.intervalId);
+      dispatch(timerAction(timer));
     }
   }
 
@@ -74,6 +75,7 @@ const mapStateToProps = (payload) => ({
   token: payload.token,
   questions: payload.getQuestions.questions.results,
   loading: payload.getQuestions.loading,
+  stop: payload.saveTimer.stop,
 });
 
 const mapDispatchToProps = (dispatch) => ({
