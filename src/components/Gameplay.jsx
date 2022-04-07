@@ -7,7 +7,6 @@ import Answers from './GameplayComponents/Answers';
 class Gameplay extends Component {
   constructor() {
     super();
-
     this.state = {
       questionIndex: 0,
     };
