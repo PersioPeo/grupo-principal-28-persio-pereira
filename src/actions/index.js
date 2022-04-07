@@ -3,6 +3,7 @@ export const CATCH_TOKEN_SUCCEEDED = 'CATCH_TOKEN_SUCCEEDED';
 export const ERROR = 'ERROR';
 export const GET_QUESTIONS_SUCCEDED = 'GET_QUESTIONS_SUCCEDED';
 export const GET_QUESTIONS_FAILED = 'GET_QUESTIONS_FAILED';
+export const LOADING = 'LOADING';
 
 export const loginAction = (payload) => ({
   type: LOGIN_SUCCEEDED,
@@ -27,4 +28,8 @@ export const getQuestions = (payload) => ({
 export const getQuestionsFail = (payload) => ({
   type: GET_QUESTIONS_FAILED,
   payload,
+});
+
+export const loading = () => ({
+  type: LOADING,
 });
