@@ -3,6 +3,8 @@ export const CATCH_TOKEN_SUCCEEDED = 'CATCH_TOKEN_SUCCEEDED';
 export const ERROR = 'ERROR';
 export const GET_QUESTIONS_SUCCEDED = 'GET_QUESTIONS_SUCCEDED';
 export const GET_QUESTIONS_FAILED = 'GET_QUESTIONS_FAILED';
+export const TIMER_ACTION = 'TIMER_ACTION';
+export const STOP_ACTION = 'STOP_ACTION';
 export const LOADING = 'LOADING';
 
 export const loginAction = (payload) => ({
@@ -28,6 +30,15 @@ export const getQuestions = (payload) => ({
 export const getQuestionsFail = (payload) => ({
   type: GET_QUESTIONS_FAILED,
   payload,
+});
+
+export const timerAction = (payload) => ({
+  type: TIMER_ACTION,
+  payload,
+});
+
+export const stopActionTime = () => ({
+  type: STOP_ACTION,
 });
 
 export const loading = () => ({

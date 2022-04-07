@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shuffle from '../../services/shuffle';
-import { loginAction } from '../../actions';
+import { loginAction, stopActionTime } from '../../actions';
 
 const DIFFICULT_POINTS = { hard: 3, medium: 2, easy: 1 };
 
 class Alternatives extends Component {
-  componentDidMount() {
-    const { correctAnswer, incorrectAnswers } = this.props;
-    const alternatives = [correctAnswer, ...incorrectAnswers];
-    shuffle(alternatives);
-  }
-
   handleClick = () => {
+    const { dispatch } = this.props;
+    dispatch(stopActionTime());
     this.handleScore();
   }
 
@@ -30,7 +26,7 @@ class Alternatives extends Component {
 
     return (
       <div data-testid="answer-options">
-        {alternatives
+        {shuffle(alternatives)
           .map((element) => (
             <button
               onClick={ this.handleClick }
