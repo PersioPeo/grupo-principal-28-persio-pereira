@@ -3,15 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchQuestions } from '../services/API';
 import Answers from './GameplayComponents/Answers';
+import { timerAction } from '../actions';
 
 class Gameplay extends Component {
   constructor() {
     super();
-
     this.state = {
       questionIndex: 0,
       timer: 30,
-      isDisabled: false,
     };
   }
 
@@ -26,13 +25,15 @@ class Gameplay extends Component {
   }
 
   stopTimer = (prevState) => {
+    const { currentTime, stop } = this.props;
     const ZERO = 0;
-    const { timer, stop } = this.state;
+    const { timer } = this.state;
     if (prevState.timer !== timer && timer === ZERO) {
       clearInterval(this.intervalId);
     }
     if (stop) {
       clearInterval(this.intervalId);
+      currentTime(timer);
     }
   }
 
@@ -45,8 +46,8 @@ class Gameplay extends Component {
   }
 
   render() {
-    const { questions, loading, timer } = this.props;
-    const { questionIndex } = this.state;
+    const { questions, loading } = this.props;
+    const { questionIndex, timer } = this.state;
     return (
       <>
         <p>{timer}</p>
@@ -74,14 +75,16 @@ Gameplay.propTypes = {
   loading: PropTypes.bool,
 }.isRequired;
 
-const mapStateToProps = (payload) => ({
-  token: payload.token,
-  questions: payload.getQuestions.questions.results,
-  loading: payload.getQuestions.loading,
+const mapStateToProps = (state) => ({
+  token: state.token,
+  questions: state.getQuestions.questions.results,
+  loading: state.getQuestions.loading,
+  stop: state.timer.stop,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchingQuestion: (token) => dispatch(fetchQuestions(token)),
+  currentTime: (timer) => dispatch(timerAction(timer)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gameplay);
