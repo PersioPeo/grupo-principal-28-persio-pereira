@@ -36,16 +36,12 @@ class Home extends React.Component {
 
   clickHandler = (e) => {
     e.preventDefault();
-    const { fetchingToken, loginInfo, history } = this.props;
+    const { loginInfo, history } = this.props;
     const { gravatarEmail, name } = this.state;
     const hash = md5(gravatarEmail).toString();
     const gravatarImg = `https://www.gravatar.com/avatar/${hash}`;
 
-    loginInfo({
-      name,
-      gravatarEmail,
-      gravatarImg,
-    });
+    loginInfo({ name, gravatarEmail, gravatarImg });
 
     history.push('/game');
   }
