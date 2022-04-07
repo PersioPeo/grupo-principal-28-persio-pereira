@@ -7,21 +7,26 @@ import { loginAction } from '../../actions';
 const DIFFICULT_POINTS = { hard: 3, medium: 2, easy: 1 };
 
 class Alternatives extends Component {
-  handleClick = () => {
-
+  componentDidMount() {
+    const { correctAnswer, incorrectAnswers } = this.props;
+    const alternatives = [correctAnswer, ...incorrectAnswers];
+    shuffle(alternatives);
   }
 
   handleClick = () => {
+    this.handleScore();
+  }
+
+  handleScore = () => {
     const scoreBase = 10;
     const { dispatch, timer, dificuldade } = this.props;
     const scoreTotal = { score: scoreBase + (timer * DIFFICULT_POINTS[dificuldade]) };
-    dispatch(loginAction({ score: 5 }));
+    dispatch(loginAction(scoreTotal));
   }
 
   render() {
     const { correctAnswer, incorrectAnswers } = this.props;
     const alternatives = [correctAnswer, ...incorrectAnswers];
-    shuffle(alternatives);
 
     return (
       <div data-testid="answer-options">
@@ -30,7 +35,6 @@ class Alternatives extends Component {
             <button
               onClick={ this.handleClick }
               key={ element }
-              id={ element }
               type="button"
               data-testid={
                 element === correctAnswer
