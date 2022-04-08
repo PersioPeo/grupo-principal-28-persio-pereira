@@ -8,6 +8,14 @@ export default class Game extends Component {
       <>
         <Header />
         <Gameplay />
+        <button
+          type="button"
+          onClick={ () => this.props.history.push('/feedback') }
+
+        >
+          feedback
+
+        </button>
       </>
     );
   }
