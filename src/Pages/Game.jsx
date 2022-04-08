@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { func } from 'prop-types';
 import Header from '../components/Header';
 import Gameplay from '../components/Gameplay';
-import { func } from 'prop-types';
 
 export default class Game extends Component {
   render() {
@@ -18,3 +18,7 @@ export default class Game extends Component {
     );
   }
 }
+
+Game.propTypes = {
+ history: func, 
+}.isRequired
