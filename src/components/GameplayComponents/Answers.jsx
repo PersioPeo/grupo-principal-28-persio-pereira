@@ -5,6 +5,12 @@ import Alternatives from './Alternatives';
 class Answers extends Component {
   render() {
     const { category, question, correctAnswer, incorrectAnswers, history } = this.props;
+    const { category,
+      question,
+      correctAnswer,
+      incorrectAnswers,
+      difficulty } = this.props;
+
     return (
       <>
         <p data-testid="question-category">{category}</p>
@@ -13,6 +19,7 @@ class Answers extends Component {
           correctAnswer={ correctAnswer }
           incorrectAnswers={ incorrectAnswers }
           history={ history }
+          difficulty={ difficulty }
         />
       </>
     );

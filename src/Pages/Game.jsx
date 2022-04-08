@@ -8,7 +8,11 @@ export default class Game extends Component {
     return (
       <>
         <Header />
+
         <Gameplay history={ history } />
+
+        <footer />
+
       </>
     );
   }

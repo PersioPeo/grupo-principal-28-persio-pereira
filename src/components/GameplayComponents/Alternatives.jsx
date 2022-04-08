@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shuffle from '../../services/shuffle';
 import { loginAction, stopActionTime, questionIndex } from '../../actions';
-
-const DIFFICULT_POINTS = { hard: 3, medium: 2, easy: 1 };
 const CORRECT = 'correct-answer';
 
 class Alternatives extends Component {
@@ -48,14 +46,13 @@ class Alternatives extends Component {
       history.push('/feedback');
     } else {
       dispatch(questionIndex(questionNumber + 1));
-    }
-  }
 
   handleScore = () => {
-    const { dispatch, timer, dificuldade } = this.props;
+    const { dispatch, timer, difficulty } = this.props;
+    const difficultyPoints = { hard: 3, medium: 2, easy: 1 };
     const scoreBase = 10;
-    const scoreTotal = { score: scoreBase + (timer * DIFFICULT_POINTS[dificuldade]) };
-    dispatch(loginAction(scoreTotal));
+    const scoreTotal = scoreBase + (timer * difficultyPoints[difficulty]);
+    dispatch(scoreAction(scoreTotal));
   }
 
   render() {
@@ -72,6 +69,9 @@ class Alternatives extends Component {
               key={ element }
               name={ element }
               type="button"
+              name={ element === correctAnswer
+                ? 'correct'
+                : 'wrong' }
               disabled={ isDisabled }
               data-testid={
                 element === correctAnswer
@@ -113,6 +113,8 @@ Alternatives.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-  questionNumber: state.questionId.index,
+questionNumber: state.questionId.index,
+  timer: state.timer.currentTime,
 });
+
 export default connect(mapStateToProps)(Alternatives);
