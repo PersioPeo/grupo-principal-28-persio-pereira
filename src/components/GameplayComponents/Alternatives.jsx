@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shuffle from '../../services/shuffle';
-import { loginAction, stopActionTime, questionIndex } from '../../actions';
+import { stopActionTime, questionIndex } from '../../actions';
+
 const CORRECT = 'correct-answer';
 
 class Alternatives extends Component {
@@ -23,8 +24,8 @@ class Alternatives extends Component {
   handleClick = (event) => {
     const { dispatch } = this.props;
     dispatch(stopActionTime());
-    this.handleScore();
     if (event.target.id === CORRECT) {
+      this.handleScore();
       this.setState({
         isDisabled: true,
         nextQuestion: false,
@@ -46,6 +47,8 @@ class Alternatives extends Component {
       history.push('/feedback');
     } else {
       dispatch(questionIndex(questionNumber + 1));
+    }
+  }
 
   handleScore = () => {
     const { dispatch, timer, difficulty } = this.props;
@@ -67,7 +70,6 @@ class Alternatives extends Component {
             <button
               onClick={ this.handleClick }
               key={ element }
-              name={ element }
               type="button"
               name={ element === correctAnswer
                 ? 'correct'
@@ -84,23 +86,23 @@ class Alternatives extends Component {
                   : `wrong-answer-${incorrectAnswers.indexOf(element)}`
               }
             >
-              { element }
+              {element}
             </button>
           ))}
 
         <div>
           {!firstQuestion
-          && (
-            <button
-              type="button"
-              data-testid="btn-next"
-              onClick={ this.handleIndex }
-              disabled={ nextQuestion }
-            >
-              Próxima
+            && (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.handleIndex }
+                disabled={ nextQuestion }
+              >
+                Próxima
 
-            </button>
-          )}
+              </button>
+            )}
         </div>
       </div>
     );
@@ -113,7 +115,7 @@ Alternatives.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-questionNumber: state.questionId.index,
+  questionNumber: state.questionId.index,
   timer: state.timer.currentTime,
 });
 
