@@ -11,6 +11,7 @@ class FeedBack extends Component {
       <>
         <Header />
         <div>
+          <span>Feedback</span>
           <span>
             {player.assertions < counterToMessage
               ? 'Could be better...' : 'Well Done!'}
