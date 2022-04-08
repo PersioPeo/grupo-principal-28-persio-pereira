@@ -16,13 +16,8 @@ class Gameplay extends Component {
 
   componentDidMount() {
     const { token, fetchingQuestion } = this.props;
-    const ONE_SECOND = 1000;
-
     fetchingQuestion(token);
-
-    this.intervalId = setInterval(() => {
-      this.setState((prev) => ({ timer: prev.timer - 1 }));
-    }, ONE_SECOND);
+    this.startTimer();
   }
 
   componentDidUpdate(props, prevState) {
@@ -30,7 +25,7 @@ class Gameplay extends Component {
   }
 
   stopTimer = (prevState) => {
-    const { dispatch, stop } = this.props;
+    const { currentTime, stop } = this.props;
     const ZERO = 0;
     const { timer } = this.state;
     if (prevState.timer !== timer && timer === ZERO) {
@@ -38,8 +33,16 @@ class Gameplay extends Component {
     }
     if (stop) {
       clearInterval(this.intervalId);
-      dispatch(timerAction(timer));
+      currentTime(timer);
     }
+  }
+
+  startTimer() {
+    const ONE_SECOND = 1000;
+
+    this.intervalId = setInterval(() => {
+      this.setState((prev) => ({ timer: prev.timer - 1 }));
+    }, ONE_SECOND);
   }
 
   render() {
@@ -60,6 +63,7 @@ class Gameplay extends Component {
                 incorrectAnswers={ element.incorrect_answers }
               />))}
         </div>
+
       </>
     );
   }
@@ -71,15 +75,16 @@ Gameplay.propTypes = {
   loading: PropTypes.bool,
 }.isRequired;
 
-const mapStateToProps = (payload) => ({
-  token: payload.token,
-  questions: payload.getQuestions.questions.results,
-  loading: payload.getQuestions.loading,
-  stop: payload.saveTimer.stop,
+const mapStateToProps = (state) => ({
+  token: state.token,
+  questions: state.getQuestions.questions.results,
+  loading: state.getQuestions.loading,
+  stop: state.timer.stop,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchingQuestion: (token) => dispatch(fetchQuestions(token)),
+  currentTime: (timer) => dispatch(timerAction(timer)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Gameplay);

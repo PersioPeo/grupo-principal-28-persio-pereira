@@ -7,6 +7,18 @@ import { loginAction, stopActionTime } from '../../actions';
 const DIFFICULT_POINTS = { hard: 3, medium: 2, easy: 1 };
 
 class Alternatives extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isDisabled: false,
+    };
+  }
+
+  componentDidMount() {
+    const THIRTY = 30000;
+    setTimeout(() => this.setState({ isDisabled: true }), THIRTY);
+  }
+
   handleClick = () => {
     const { dispatch } = this.props;
     dispatch(stopActionTime());
@@ -14,14 +26,15 @@ class Alternatives extends Component {
   }
 
   handleScore = () => {
-    const scoreBase = 10;
     const { dispatch, timer, dificuldade } = this.props;
+    const scoreBase = 10;
     const scoreTotal = { score: scoreBase + (timer * DIFFICULT_POINTS[dificuldade]) };
     dispatch(loginAction(scoreTotal));
   }
 
   render() {
     const { correctAnswer, incorrectAnswers } = this.props;
+    const { isDisabled } = this.state;
     const alternatives = [correctAnswer, ...incorrectAnswers];
 
     return (
@@ -32,6 +45,7 @@ class Alternatives extends Component {
               onClick={ this.handleClick }
               key={ element }
               type="button"
+              disabled={ isDisabled }
               data-testid={
                 element === correctAnswer
                   ? 'correct-answer'
