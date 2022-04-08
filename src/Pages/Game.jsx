@@ -4,10 +4,11 @@ import Gameplay from '../components/Gameplay';
 
 export default class Game extends Component {
   render() {
+    const { history } = this.props;
     return (
       <>
         <Header />
-        <Gameplay />
+        <Gameplay history={ history } />
       </>
     );
   }

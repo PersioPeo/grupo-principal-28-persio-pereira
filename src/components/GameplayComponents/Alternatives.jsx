@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shuffle from '../../services/shuffle';
-import { loginAction, stopActionTime } from '../../actions';
+import { loginAction, stopActionTime, questionIndex } from '../../actions';
 
 const DIFFICULT_POINTS = { hard: 3, medium: 2, easy: 1 };
+const CORRECT = 'correct-answer';
 
 class Alternatives extends Component {
   constructor() {
     super();
     this.state = {
       isDisabled: false,
+      nextQuestion: true,
+      firstQuestion: true,
     };
   }
 
@@ -19,10 +22,33 @@ class Alternatives extends Component {
     setTimeout(() => this.setState({ isDisabled: true }), THIRTY);
   }
 
-  handleClick = () => {
+  handleClick = (event) => {
     const { dispatch } = this.props;
     dispatch(stopActionTime());
     this.handleScore();
+    if (event.target.id === CORRECT) {
+      this.setState({
+        isDisabled: true,
+        nextQuestion: false,
+        firstQuestion: false,
+      });
+    } else {
+      this.setState({
+        isDisabled: true,
+        nextQuestion: true,
+        firstQuestion: false,
+      });
+    }
+  }
+
+  handleIndex = () => {
+    const { dispatch, questionNumber, history } = this.props;
+    const MAX_QUESTIONS = 3;
+    if (questionNumber > MAX_QUESTIONS) {
+      history.push('/feedback');
+    } else {
+      dispatch(questionIndex(questionNumber + 1));
+    }
   }
 
   handleScore = () => {
@@ -34,7 +60,7 @@ class Alternatives extends Component {
 
   render() {
     const { correctAnswer, incorrectAnswers } = this.props;
-    const { isDisabled } = this.state;
+    const { isDisabled, nextQuestion, firstQuestion } = this.state;
     const alternatives = [correctAnswer, ...incorrectAnswers];
 
     return (
@@ -44,17 +70,38 @@ class Alternatives extends Component {
             <button
               onClick={ this.handleClick }
               key={ element }
+              name={ element }
               type="button"
               disabled={ isDisabled }
               data-testid={
                 element === correctAnswer
-                  ? 'correct-answer'
+                  ? CORRECT
+                  : `wrong-answer-${incorrectAnswers.indexOf(element)}`
+              }
+              id={
+                element === correctAnswer
+                  ? CORRECT
                   : `wrong-answer-${incorrectAnswers.indexOf(element)}`
               }
             >
               { element }
             </button>
           ))}
+
+        <div>
+          {!firstQuestion
+          && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.handleIndex }
+              disabled={ nextQuestion }
+            >
+              Próxima
+
+            </button>
+          )}
+        </div>
       </div>
     );
   }
@@ -65,4 +112,7 @@ Alternatives.propTypes = {
   correctAnswer: PropTypes.string,
 }.isRequired;
 
-export default connect()(Alternatives);
+const mapStateToProps = (state) => ({
+  questionNumber: state.questionId.index,
+});
+export default connect(mapStateToProps)(Alternatives);

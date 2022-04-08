@@ -6,6 +6,7 @@ export const GET_QUESTIONS_FAILED = 'GET_QUESTIONS_FAILED';
 export const TIMER_ACTION = 'TIMER_ACTION';
 export const STOP_ACTION = 'STOP_ACTION';
 export const LOADING = 'LOADING';
+export const QUESTION_INDEX = 'QUESTION_INDEX';
 
 export const loginAction = (payload) => ({
   type: LOGIN_SUCCEEDED,
@@ -43,4 +44,9 @@ export const stopActionTime = () => ({
 
 export const loading = () => ({
   type: LOADING,
+});
+
+export const questionIndex = (payload) => ({
+  type: QUESTION_INDEX,
+  payload,
 });
