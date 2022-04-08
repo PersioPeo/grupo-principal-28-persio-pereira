@@ -9,7 +9,6 @@ class Gameplay extends Component {
   constructor() {
     super();
     this.state = {
-      questionIndex: 0,
       timer: 30,
     };
   }
@@ -46,13 +45,13 @@ class Gameplay extends Component {
   }
 
   render() {
-    const { questions, loading } = this.props;
-    const { questionIndex, timer } = this.state;
+    const { questions, loading, questionIndex, history } = this.props;
+    const { timer } = this.state;
     return (
       <>
         <p>{timer}</p>
         <div>
-          { loading ? 'Carregando...'
+          {loading ? 'Carregando...'
             : questions
               .filter((_, index) => index === questionIndex)
               .map((element) => (<Answers
@@ -62,6 +61,7 @@ class Gameplay extends Component {
                 question={ element.question }
                 correctAnswer={ element.correct_answer }
                 incorrectAnswers={ element.incorrect_answers }
+                history={ history }
               />))}
         </div>
 
@@ -81,6 +81,7 @@ const mapStateToProps = (state) => ({
   questions: state.getQuestions.questions.results,
   loading: state.getQuestions.loading,
   stop: state.timer.stop,
+  questionIndex: state.questionId.index,
 });
 
 const mapDispatchToProps = (dispatch) => ({
