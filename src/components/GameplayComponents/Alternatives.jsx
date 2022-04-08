@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import shuffle from '../../services/shuffle';
-import { stopActionTime, questionIndex } from '../../actions';
+import { stopActionTime, questionIndex, scoreAction } from '../../actions';
 
 const CORRECT = 'correct-answer';
 
@@ -34,7 +34,7 @@ class Alternatives extends Component {
     } else {
       this.setState({
         isDisabled: true,
-        nextQuestion: true,
+        nextQuestion: false,
         firstQuestion: false,
       });
     }
@@ -71,9 +71,7 @@ class Alternatives extends Component {
               onClick={ this.handleClick }
               key={ element }
               type="button"
-              name={ element === correctAnswer
-                ? 'correct'
-                : 'wrong' }
+              name={ element }
               disabled={ isDisabled }
               data-testid={
                 element === correctAnswer
