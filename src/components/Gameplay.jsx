@@ -51,7 +51,7 @@ class Gameplay extends Component {
       <>
         <p>{timer}</p>
         <div>
-          { loading ? 'Carregando...'
+          {loading ? 'Carregando...'
             : questions
               .filter((_, index) => index === questionIndex)
               .map((element) => (<Answers
