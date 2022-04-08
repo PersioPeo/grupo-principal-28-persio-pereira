@@ -4,8 +4,9 @@ import Alternatives from './Alternatives';
 
 class Answers extends Component {
   render() {
-    const { category, question, correctAnswer, incorrectAnswers, history } = this.props;
-    const { category,
+    const {
+      history,
+      category,
       question,
       correctAnswer,
       incorrectAnswers,
