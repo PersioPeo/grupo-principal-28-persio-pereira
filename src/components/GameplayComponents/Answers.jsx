@@ -4,7 +4,11 @@ import Alternatives from './Alternatives';
 
 class Answers extends Component {
   render() {
-    const { category, question, correctAnswer, incorrectAnswers } = this.props;
+    const { category,
+      question,
+      correctAnswer,
+      incorrectAnswers,
+      difficulty } = this.props;
     return (
       <>
         <p data-testid="question-category">{category}</p>
@@ -12,6 +16,7 @@ class Answers extends Component {
         <Alternatives
           correctAnswer={ correctAnswer }
           incorrectAnswers={ incorrectAnswers }
+          difficulty={ difficulty }
         />
       </>
     );

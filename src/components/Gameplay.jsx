@@ -58,6 +58,7 @@ class Gameplay extends Component {
               .map((element) => (<Answers
                 key={ element.question }
                 category={ element.category }
+                difficulty={ element.difficulty }
                 question={ element.question }
                 correctAnswer={ element.correct_answer }
                 incorrectAnswers={ element.incorrect_answers }

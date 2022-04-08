@@ -8,6 +8,7 @@ export default class Game extends Component {
       <>
         <Header />
         <Gameplay />
+        <footer />
       </>
     );
   }

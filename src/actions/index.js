@@ -6,6 +6,7 @@ export const GET_QUESTIONS_FAILED = 'GET_QUESTIONS_FAILED';
 export const TIMER_ACTION = 'TIMER_ACTION';
 export const STOP_ACTION = 'STOP_ACTION';
 export const LOADING = 'LOADING';
+export const SCORE_SUCCEEDED = 'SCORE_SUCCEEDED';
 
 export const loginAction = (payload) => ({
   type: LOGIN_SUCCEEDED,
@@ -29,6 +30,11 @@ export const getQuestions = (payload) => ({
 
 export const getQuestionsFail = (payload) => ({
   type: GET_QUESTIONS_FAILED,
+  payload,
+});
+
+export const scoreAction = (payload) => ({
+  type: SCORE_SUCCEEDED,
   payload,
 });
 
