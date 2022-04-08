@@ -9,7 +9,6 @@ export default class Game extends Component {
     return (
       <>
         <Header />
-
         <Gameplay history={ history } />
 
         <footer />
@@ -20,5 +19,5 @@ export default class Game extends Component {
 }
 
 Game.propTypes = {
- history: func, 
-}.isRequired
+  history: func,
+}.isRequired;
