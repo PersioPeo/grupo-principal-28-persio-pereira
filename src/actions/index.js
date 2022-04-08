@@ -9,7 +9,6 @@ export const LOADING = 'LOADING';
 export const QUESTION_INDEX = 'QUESTION_INDEX';
 export const SCORE_SUCCEEDED = 'SCORE_SUCCEEDED';
 
-
 export const loginAction = (payload) => ({
   type: LOGIN_SUCCEEDED,
   payload,
