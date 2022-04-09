@@ -17,7 +17,7 @@ class Alternatives extends Component {
   }
 
   componentDidMount() {
-    const THIRTY = 5000;
+    const THIRTY = 30000;
     const { dispatch } = this.props;
 
     this.timeoutID = setTimeout(() => {
