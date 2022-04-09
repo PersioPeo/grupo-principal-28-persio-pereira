@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Alternatives from './Alternatives';
+import Timer from './Timer';
 
 class Answers extends Component {
   render() {
     const {
-      startTimer,
       history,
       category,
       question,
@@ -15,6 +15,7 @@ class Answers extends Component {
 
     return (
       <>
+        <Timer />
         <p data-testid="question-category">{category}</p>
         <p data-testid="question-text">{question}</p>
         <Alternatives
@@ -22,7 +23,6 @@ class Answers extends Component {
           incorrectAnswers={ incorrectAnswers }
           history={ history }
           difficulty={ difficulty }
-          startTimer={ startTimer }
         />
       </>
     );

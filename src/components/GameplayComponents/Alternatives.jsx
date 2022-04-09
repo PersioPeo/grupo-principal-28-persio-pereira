@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { stopActionTime, questionIndex, scoreAction } from '../../actions';
+import { timerAction, questionIndex, scoreAction } from '../../actions';
 
 const CORRECT = 'correct-answer';
 const NUMBER_SORT = 0.5;
@@ -18,36 +18,38 @@ class Alternatives extends Component {
 
   componentDidMount() {
     const THIRTY = 30000;
-    setTimeout(() => this.setState({ isDisabled: true }), THIRTY);
+    const { dispatch } = this.props;
+
+    this.timeoutID = setTimeout(() => {
+      dispatch(timerAction());
+      this.setState({
+        isDisabled: true,
+        nextQuestion: false,
+        firstQuestion: false });
+    }, THIRTY);
   }
 
   handleClick = (event) => {
     const { dispatch } = this.props;
-    dispatch(stopActionTime());
-    if (event.target.id === CORRECT) {
-      this.handleScore();
-      this.setState({
-        isDisabled: true,
-        nextQuestion: false,
-        firstQuestion: false,
-      });
-    } else {
-      this.setState({
-        isDisabled: true,
-        nextQuestion: false,
-        firstQuestion: false,
-      });
-    }
+
+    dispatch(timerAction());
+    clearTimeout(this.timeoutID);
+
+    if (event.target.id === CORRECT) this.handleScore();
+
+    this.setState({
+      isDisabled: true,
+      nextQuestion: false,
+      firstQuestion: false,
+    });
   }
 
   handleIndex = () => {
-    const { dispatch, questionNumber, history, startTimer } = this.props;
+    const { dispatch, questionNumber, history } = this.props;
     const MAX_QUESTIONS = 3;
     if (questionNumber > MAX_QUESTIONS) {
       history.push('/feedback');
     } else {
-      dispatch(stopActionTime());
-      startTimer('reset');
       dispatch(questionIndex(questionNumber + 1));
     }
   }
