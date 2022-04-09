@@ -20,6 +20,8 @@ class Gameplay extends Component {
   }
 
   componentDidUpdate(props, prevState) {
+    console.log(props, prevState);
+
     this.stopTimer(prevState);
   }
 
@@ -36,9 +38,9 @@ class Gameplay extends Component {
     }
   }
 
-  startTimer() {
+  startTimer = (reset) => {
     const ONE_SECOND = 1000;
-
+    if (reset) this.setState({ timer: 30 });
     this.intervalId = setInterval(() => {
       this.setState((prev) => ({ timer: prev.timer - 1 }));
     }, ONE_SECOND);
@@ -62,6 +64,7 @@ class Gameplay extends Component {
                 correctAnswer={ element.correct_answer }
                 incorrectAnswers={ element.incorrect_answers }
                 history={ history }
+                startTimer={ this.startTimer }
               />))}
         </div>
 

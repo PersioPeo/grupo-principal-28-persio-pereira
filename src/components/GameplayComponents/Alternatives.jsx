@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import shuffle from '../../services/shuffle';
 import { stopActionTime, questionIndex, scoreAction } from '../../actions';
 
 const CORRECT = 'correct-answer';
+const NUMBER_SORT = 0.5;
 
 class Alternatives extends Component {
   constructor() {
@@ -41,11 +41,13 @@ class Alternatives extends Component {
   }
 
   handleIndex = () => {
-    const { dispatch, questionNumber, history } = this.props;
+    const { dispatch, questionNumber, history, startTimer } = this.props;
     const MAX_QUESTIONS = 3;
     if (questionNumber > MAX_QUESTIONS) {
       history.push('/feedback');
     } else {
+      dispatch(stopActionTime());
+      startTimer('reset');
       dispatch(questionIndex(questionNumber + 1));
     }
   }
@@ -65,7 +67,7 @@ class Alternatives extends Component {
 
     return (
       <div data-testid="answer-options">
-        {shuffle(alternatives)
+        {alternatives.sort(() => Math.random() - NUMBER_SORT)
           .map((element) => (
             <button
               onClick={ this.handleClick }

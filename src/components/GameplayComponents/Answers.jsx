@@ -5,6 +5,7 @@ import Alternatives from './Alternatives';
 class Answers extends Component {
   render() {
     const {
+      startTimer,
       history,
       category,
       question,
@@ -21,6 +22,7 @@ class Answers extends Component {
           incorrectAnswers={ incorrectAnswers }
           history={ history }
           difficulty={ difficulty }
+          startTimer={ startTimer }
         />
       </>
     );
