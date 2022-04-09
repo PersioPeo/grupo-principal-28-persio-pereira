@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { object } from 'prop-types';
 import Header from '../components/Header';
+import { questionIndex } from '../actions';
 
 class FeedBack extends Component {
   render() {
@@ -20,7 +21,8 @@ class FeedBack extends Component {
           <span data-testid="feedback-total-question">{player.assertions}</span>
           <button
             onClick={ () => {
-              const { history } = this.props;
+              const { history, dispatch } = this.props;
+              dispatch(questionIndex(0));
               history.push('/');
             } }
             type="button"
