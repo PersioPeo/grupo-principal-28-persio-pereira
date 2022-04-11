@@ -13,14 +13,17 @@ class Header extends React.Component {
           alt={ name }
           data-testid="header-profile-picture"
         />
-        <p data-testid="header-player-name">
-          {' '}
-          {name}
-        </p>
-        <p data-testid="header-score">
-          {' '}
-          {score }
-        </p>
+        <div>
+          <p data-testid="header-player-name">
+            {' '}
+            {name}
+          </p>
+          <p data-testid="header-score">
+            Pontos:
+            {' '}
+            { score }
+          </p>
+        </div>
       </S.Container>
     );
   }
