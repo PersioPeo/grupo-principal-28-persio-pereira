@@ -29,7 +29,7 @@ const mapStateToProps = ({ player }) => ({
   gravatarImg: player.gravatarImg,
   name: player.name,
   score: player.score,
-
+  ranking: player.ranking,
 });
 
 Header.propTypes = {

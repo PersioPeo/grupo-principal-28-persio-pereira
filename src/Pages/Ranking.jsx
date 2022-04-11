@@ -4,9 +4,45 @@ import { func } from 'prop-types';
 import { questionIndex } from '../actions';
 
 class Ranking extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ranking: [],
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ ranking: JSON.parse(localStorage.getItem('ranking')) });
+  }
+
   render() {
+    const { ranking } = this.state;
     return (
       <div data-testid="ranking-title">
+        <section>
+          {
+            ranking.sort((a, b) => a.score - b.score).reverse().map((player, index) => (
+
+              <div key={ player.name + index }>
+
+                <img
+                  src={ player.picture }
+                  alt={ player.name }
+                />
+                <span
+                  key={ player.name }
+                  data-testid={ `player-name-${index}` }
+                >
+                  {player.name}
+                </span>
+                <span data-testid={ `player-score-${index}` }>
+                  {player.score}
+                </span>
+
+              </div>
+            ))
+          }
+        </section>
         <button
           onClick={ () => {
             const { history, dispatch } = this.props;
@@ -18,7 +54,6 @@ class Ranking extends Component {
         >
           Play Again
         </button>
-        Ranking
       </div>
     );
   }
@@ -30,9 +65,6 @@ Ranking.propTypes = {
 }.isDisabled;
 
 const mapStateToProps = ({ player }) => ({
-  // [
-  //   { name: nome - da - pessoa, score: 10, picture: url - da - foto - no - gravatar }
-  // ]
   player,
 });
 
