@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+const Container = styled.div`
 background-color:#031029;
 height: 71px;
 display:flex;
@@ -25,6 +25,4 @@ align-items: center;
   }
 `;
 
-export const Teste = styled.img`
-border: 2px solid border;
-`;
+export default Container;
