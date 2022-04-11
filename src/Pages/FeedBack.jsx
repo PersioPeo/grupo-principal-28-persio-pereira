@@ -5,6 +5,21 @@ import Header from '../components/Header';
 import { questionIndex } from '../actions';
 
 class FeedBack extends Component {
+  componentDidMount() {
+    this.setLocalStorage();
+  }
+
+  setLocalStorage = () => {
+    const { ranking } = this.props;
+    let rankingStorage = JSON.parse(localStorage.getItem('ranking'));
+    if (rankingStorage) {
+      rankingStorage.push(...ranking);
+    } else {
+      rankingStorage = ranking;
+    }
+    localStorage.setItem('ranking', JSON.stringify(rankingStorage));
+  }
+
   render() {
     const { player } = this.props;
     const counterToMessage = 3;
@@ -23,6 +38,7 @@ class FeedBack extends Component {
             onClick={ () => {
               const { history, dispatch } = this.props;
               dispatch(questionIndex(0));
+
               history.push('/');
             } }
             type="button"
@@ -51,8 +67,9 @@ FeedBack.propTypes = {
   player: object,
 }.isRequired;
 
-const mapStateToProps = ({ player }) => ({
+const mapStateToProps = ({ player, ranking }) => ({
   player,
+  ranking,
 });
 
 export default connect(mapStateToProps)(FeedBack);

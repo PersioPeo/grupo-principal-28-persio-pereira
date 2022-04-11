@@ -8,6 +8,7 @@ export const STOP_ACTION = 'STOP_ACTION';
 export const LOADING = 'LOADING';
 export const QUESTION_INDEX = 'QUESTION_INDEX';
 export const SCORE_SUCCEEDED = 'SCORE_SUCCEEDED';
+export const RANKING = 'RANKING';
 
 export const loginAction = (payload) => ({
   type: LOGIN_SUCCEEDED,
@@ -55,4 +56,13 @@ export const loading = () => ({
 export const questionIndex = (payload) => ({
   type: QUESTION_INDEX,
   payload,
+});
+
+export const setRanking = (payload) => ({
+  type: RANKING,
+  payload,
+});
+
+export const resetRedux = () => ({
+  type: 'reset',
 });

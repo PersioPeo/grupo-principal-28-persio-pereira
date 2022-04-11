@@ -41,7 +41,7 @@ class Home extends React.Component {
     const hash = md5(gravatarEmail).toString();
     const gravatarImg = `https://www.gravatar.com/avatar/${hash}`;
 
-    loginInfo({ name, gravatarEmail, gravatarImg });
+    loginInfo({ name, gravatarEmail, gravatarImg, score: 0, assertions: 0 });
 
     history.push('/game');
   }
