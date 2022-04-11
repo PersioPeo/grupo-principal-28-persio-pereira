@@ -14,7 +14,7 @@ class Gameplay extends Component {
     const { questions, loading, questionIndex, history } = this.props;
 
     return (
-      <div>
+      <div className="container">
         {loading ? 'Carregando...'
           : questions
             .filter((_, index) => index === questionIndex)

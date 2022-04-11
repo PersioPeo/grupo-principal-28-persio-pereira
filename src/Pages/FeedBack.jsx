@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { object } from 'prop-types';
 import Header from '../components/Header';
-import { questionIndex } from '../actions';
+import { questionIndex, setRanking } from '../actions';
 
 class FeedBack extends Component {
   componentDidMount() {
@@ -10,7 +10,8 @@ class FeedBack extends Component {
   }
 
   setLocalStorage = () => {
-    const { ranking } = this.props;
+    const { player: { gravatarImg, name, score }, dispatch, ranking } = this.props;
+    dispatch(setRanking({ name, score, gravatarImg }));
     let rankingStorage = JSON.parse(localStorage.getItem('ranking'));
     if (rankingStorage) {
       rankingStorage.push(...ranking);
