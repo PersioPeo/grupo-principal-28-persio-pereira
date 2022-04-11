@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-border: 2px solid red;
+const Container = styled.div`
 background-color:#031029;
 height: 71px;
 display:flex;
@@ -13,12 +12,17 @@ align-items: center;
     height: 50px;
 }
 
+  & div{
+    display: flex;
+    width: 100%;
+    margin: 0 20px;
+    justify-content: space-between;
+  }
+
   & p{
     color: white;
-    size: 26px;
+    font-size: 26px;
   }
 `;
 
-export const Teste = styled.img`
-border: 2px solid border;
-`;
+export default Container;
