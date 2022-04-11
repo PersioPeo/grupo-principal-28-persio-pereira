@@ -4,7 +4,7 @@ import { func } from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { fetchToken } from '../services/API';
 import { loginAction } from '../actions';
-import Loginstyle from './cssPages/Login.module.css';
+import * as S from './cssPages/Login';
 import LogoTrivia from '../images/Trivia_Logo.png';
 
 class Home extends React.Component {
@@ -53,19 +53,17 @@ class Home extends React.Component {
   render() {
     const { gravatarEmail, name, buttonDisable } = this.state;
     return (
-      <div className={ Loginstyle.container }>
-        <img className={ Loginstyle.logo } src={ LogoTrivia } alt="Logo do game" />
+      <S.Container name="container-login">
+        <img src={ LogoTrivia } alt="Logo do game" />
 
-        <div className={ Loginstyle.container__form }>
-          <form className={ Loginstyle.form }>
+        <S.ContainerForm>
+          <S.Form>
 
             <label
-              className={ Loginstyle.label }
               htmlFor="email"
             >
               EMAIL DO GRAVATAR
               <input
-                className={ Loginstyle.input }
                 type="text"
                 id="email"
                 data-testid="input-gravatar-email"
@@ -76,12 +74,10 @@ class Home extends React.Component {
             </label>
 
             <label
-              className={ Loginstyle.label }
               htmlFor="senha"
             >
               NOME
               <input
-                className={ Loginstyle.input }
                 type="text"
                 id="senha"
                 data-testid="input-player-name"
@@ -91,10 +87,9 @@ class Home extends React.Component {
               />
             </label>
 
-            <section className={ Loginstyle.container__btn }>
+            <section>
 
               <button
-                className={ Loginstyle.btn__enter }
                 type="submit"
                 data-testid="btn-play"
                 disabled={ buttonDisable }
@@ -103,7 +98,6 @@ class Home extends React.Component {
                 Entrar
               </button>
               <button
-                className={ Loginstyle.btn__config }
                 name="config"
                 type="button"
                 data-testid="btn-settings"
@@ -112,9 +106,9 @@ class Home extends React.Component {
                 Configurações
               </button>
             </section>
-          </form>
-        </div>
-      </div>
+          </S.Form>
+        </S.ContainerForm>
+      </S.Container>
     );
   }
 }
