@@ -1,27 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { string, number } from 'prop-types';
-import * as S from '../Pages/cssPages/Header';
+import Container from '../Pages/cssPages/Header';
 
 class Header extends React.Component {
   render() {
     const { gravatarImg, name, score } = this.props;
     return (
-      <S.Container>
+      <Container>
         <img
           src={ gravatarImg }
           alt={ name }
           data-testid="header-profile-picture"
         />
-        <p data-testid="header-player-name">
-          {' '}
-          {name}
-        </p>
-        <p data-testid="header-score">
-          {' '}
-          {score }
-        </p>
-      </S.Container>
+        <div>
+          <p data-testid="header-player-name">
+            {' '}
+            {name}
+          </p>
+          <p data-testid="header-score">
+            Pontos:
+            {' '}
+            { score }
+          </p>
+        </div>
+      </Container>
     );
   }
 }
