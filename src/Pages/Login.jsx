@@ -2,9 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import md5 from 'crypto-js/md5';
-import { Link } from 'react-router-dom';
 import { fetchToken } from '../services/API';
 import { loginAction } from '../actions';
+import Loginstyle from './cssPages/Login.module.css';
+import LogoTrivia from '../images/Trivia_Logo.png';
 
 class Home extends React.Component {
   constructor() {
@@ -37,6 +38,9 @@ class Home extends React.Component {
   clickHandler = (e) => {
     e.preventDefault();
     const { loginInfo, history } = this.props;
+    if (e.target.name === 'config') {
+      return history.push('/config');
+    }
     const { gravatarEmail, name } = this.state;
     const hash = md5(gravatarEmail).toString();
     const gravatarImg = `https://www.gravatar.com/avatar/${hash}`;
@@ -49,49 +53,68 @@ class Home extends React.Component {
   render() {
     const { gravatarEmail, name, buttonDisable } = this.state;
     return (
-      <form>
-        <label htmlFor="email">
-          Email do Gravatar:
-          <input
-            type="text"
-            id="email"
-            data-testid="input-gravatar-email"
-            name="gravatarEmail"
-            value={ gravatarEmail }
-            onChange={ this.changeHandler }
-          />
-        </label>
+      <div className={ Loginstyle.container }>
+        <img className={ Loginstyle.logo } src={ LogoTrivia } alt="Logo do game" />
 
-        <label htmlFor="senha">
-          Nome:
-          <input
-            type="text"
-            id="senha"
-            data-testid="input-player-name"
-            name="name"
-            value={ name }
-            onChange={ this.changeHandler }
-          />
-        </label>
+        <div className={ Loginstyle.container__form }>
+          <form className={ Loginstyle.form }>
 
-        <button
-          type="submit"
-          data-testid="btn-play"
-          disabled={ buttonDisable }
-          onClick={ this.clickHandler }
-        >
-          Entrar
-        </button>
+            <label
+              className={ Loginstyle.label }
+              htmlFor="email"
+            >
+              EMAIL DO GRAVATAR
+              <input
+                className={ Loginstyle.input }
+                type="text"
+                id="email"
+                data-testid="input-gravatar-email"
+                name="gravatarEmail"
+                value={ gravatarEmail }
+                onChange={ this.changeHandler }
+              />
+            </label>
 
-        <Link to="/config">
-          <button
-            type="button"
-            data-testid="btn-settings"
-          >
-            Configurações
-          </button>
-        </Link>
-      </form>
+            <label
+              className={ Loginstyle.label }
+              htmlFor="senha"
+            >
+              NOME
+              <input
+                className={ Loginstyle.input }
+                type="text"
+                id="senha"
+                data-testid="input-player-name"
+                name="name"
+                value={ name }
+                onChange={ this.changeHandler }
+              />
+            </label>
+
+            <section className={ Loginstyle.container__btn }>
+
+              <button
+                className={ Loginstyle.btn__enter }
+                type="submit"
+                data-testid="btn-play"
+                disabled={ buttonDisable }
+                onClick={ this.clickHandler }
+              >
+                Entrar
+              </button>
+              <button
+                className={ Loginstyle.btn__config }
+                name="config"
+                type="button"
+                data-testid="btn-settings"
+                onClick={ this.clickHandler }
+              >
+                Configurações
+              </button>
+            </section>
+          </form>
+        </div>
+      </div>
     );
   }
 }
