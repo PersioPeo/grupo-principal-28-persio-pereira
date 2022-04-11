@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { string, number } from 'prop-types';
+import * as S from '../Pages/cssPages/Header';
 
 class Header extends React.Component {
   render() {
     const { gravatarImg, name, score } = this.props;
     return (
-      <div>
+      <S.Container>
         <img
           src={ gravatarImg }
           alt={ name }
@@ -20,7 +21,7 @@ class Header extends React.Component {
           {' '}
           {score }
         </p>
-      </div>
+      </S.Container>
     );
   }
 }
