@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { object } from 'prop-types';
 import Header from '../components/Header';
 import { questionIndex, setRanking } from '../actions';
+import * as S from './cssPages/Feedback';
 
 class FeedBack extends Component {
   componentDidMount() {
@@ -22,19 +23,24 @@ class FeedBack extends Component {
   }
 
   render() {
-    const { player } = this.props;
+    const { player: { score, assertions } } = this.props;
     const counterToMessage = 3;
     return (
       <>
         <Header />
-        <div>
-          <span>Feedback</span>
+        <S.Container>
+          <h1>Feedback</h1>
           <span data-testid="feedback-text">
-            {player.assertions < counterToMessage
+            {assertions < counterToMessage
               ? 'Could be better...' : 'Well Done!'}
           </span>
-          <span data-testid="feedback-total-score">{player.score}</span>
-          <span data-testid="feedback-total-question">{player.assertions}</span>
+          <span data-testid="feedback-total-question">
+            {(assertions === 1) ? `Você acertou ${assertions} questão!`
+              : `Você acertou ${assertions} questões!`}
+          </span>
+          <span data-testid="feedback-total-score">
+            { `E fez um total de ${score} pontos`}
+          </span>
           <button
             onClick={ () => {
               const { history, dispatch } = this.props;
@@ -58,7 +64,7 @@ class FeedBack extends Component {
             Ranking
           </button>
 
-        </div>
+        </S.Container>
       </>
     );
   }

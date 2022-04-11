@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import { questionIndex } from '../actions';
+import * as S from './cssPages/Ranking';
 
 class Ranking extends Component {
   constructor(props) {
@@ -18,43 +19,48 @@ class Ranking extends Component {
   render() {
     const { ranking } = this.state;
     return (
-      <div data-testid="ranking-title">
-        <section>
-          {
-            ranking.sort((a, b) => a.score - b.score).reverse().map((player, index) => (
+      <>
+        <S.GlobalStyle />
+        <S.Container data-testid="ranking-title">
+          <section>
+            <h1>Leaderboard</h1>
+            {
+              ranking.sort((a, b) => a.score - b.score).reverse().map((player, index) => (
 
-              <div key={ player.name + index }>
+                <div key={ player.name + index }>
 
-                <img
-                  src={ player.picture }
-                  alt={ player.name }
-                />
-                <span
-                  key={ player.name }
-                  data-testid={ `player-name-${index}` }
-                >
-                  {player.name}
-                </span>
-                <span data-testid={ `player-score-${index}` }>
-                  {player.score}
-                </span>
+                  <img
+                    src={ player.gravatarImg }
+                    alt={ player.name }
+                  />
+                  <span
+                    className="user"
+                    key={ player.name }
+                    data-testid={ `player-name-${index}` }
+                  >
+                    {player.name}
+                  </span>
+                  <span data-testid={ `player-score-${index}` }>
+                    {player.score}
+                  </span>
 
-              </div>
-            ))
-          }
-        </section>
-        <button
-          onClick={ () => {
-            const { history, dispatch } = this.props;
-            dispatch(questionIndex(0));
-            history.push('/');
-          } }
-          type="button"
-          data-testid="btn-go-home"
-        >
-          Play Again
-        </button>
-      </div>
+                </div>
+              ))
+            }
+          </section>
+          <button
+            onClick={ () => {
+              const { history, dispatch } = this.props;
+              dispatch(questionIndex(0));
+              history.push('/');
+            } }
+            type="button"
+            data-testid="btn-go-home"
+          >
+            Play Again
+          </button>
+        </S.Container>
+      </>
     );
   }
 }
