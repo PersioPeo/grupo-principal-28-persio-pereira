@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchQuestions } from '../services/API';
 import Answers from './GameplayComponents/Answers';
+import ContainerAns from './GameplayComponents/cssGameplay/Answers';
 
 class Gameplay extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class Gameplay extends Component {
     const { questions, loading, questionIndex, history } = this.props;
 
     return (
-      <div className="container">
+      <ContainerAns className="containerAlfa">
         {loading ? 'Carregando...'
           : questions
             .filter((_, index) => index === questionIndex)
@@ -27,7 +28,7 @@ class Gameplay extends Component {
               incorrectAnswers={ element.incorrect_answers }
               history={ history }
             />))}
-      </div>
+      </ContainerAns>
     );
   }
 }

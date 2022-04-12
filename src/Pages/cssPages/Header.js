@@ -24,8 +24,8 @@ const Container = styled.div`
     justify-content: space-between;
   }
 
-  & p{
-    color: white;
+  & p , span {
+    color: ${({ theme }) => theme.main};
     font-size: 26px;
   }
 
