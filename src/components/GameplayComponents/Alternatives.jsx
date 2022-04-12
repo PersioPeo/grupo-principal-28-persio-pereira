@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { timerAction, questionIndex, scoreAction, setRanking } from '../../actions';
-import BtnStyle from './cssGameplay/Alternativas.module.css';
+import * as S from './cssGameplay/Alternativas';
 
 const CORRECT = 'correct-answer';
 const NUMBER_SORT = 0.5;
@@ -14,7 +14,6 @@ class Alternatives extends Component {
       isDisabled: false,
       nextQuestion: true,
       firstQuestion: true,
-      classBtnShow: false,
     };
   }
 
@@ -32,7 +31,6 @@ class Alternatives extends Component {
   }
 
   handleClick = (event) => {
-    this.setState({ classBtnShow: true });
     const { dispatch } = this.props;
 
     dispatch(timerAction());
@@ -70,43 +68,38 @@ class Alternatives extends Component {
 
   render() {
     const { correctAnswer, incorrectAnswers } = this.props;
-    const { isDisabled, nextQuestion, firstQuestion, classBtnShow } = this.state;
+    const { isDisabled, nextQuestion, firstQuestion } = this.state;
     const alternatives = [correctAnswer, ...incorrectAnswers];
 
     return (
-      <div
-        className={ BtnStyle.container__btn }
-        data-testid="answer-options"
-      >
-        {alternatives.sort(() => Math.random() - NUMBER_SORT)
-          .map((element) => (
-            <button
-              className={
-                element === correctAnswer && classBtnShow
-                  ? BtnStyle.btnCorrect
-                  : BtnStyle.btnWrong
-              }
-              onClick={ this.handleClick }
-              key={ element }
-              type="button"
-              name={ element }
-              disabled={ isDisabled }
-              data-testid={
-                element === correctAnswer
-                  ? CORRECT
-                  : `wrong-answer-${incorrectAnswers.indexOf(element)}`
-              }
-              id={
-                element === correctAnswer
-                  ? CORRECT
-                  : `wrong-answer-${incorrectAnswers.indexOf(element)}`
-              }
-            >
-              {element}
-            </button>
-          ))}
-
-        <div>
+      <div>
+        <S.ContainerAlt
+          data-testid="answer-options"
+        >
+          {alternatives.sort(() => Math.random() - NUMBER_SORT)
+            .map((element) => (
+              <S.Buttons
+                onClick={ this.handleClick }
+                key={ element }
+                type="button"
+                name={ element }
+                disabled={ isDisabled }
+                data-testid={
+                  element === correctAnswer
+                    ? CORRECT
+                    : `wrong-answer-${incorrectAnswers.indexOf(element)}`
+                }
+                id={
+                  element === correctAnswer
+                    ? CORRECT
+                    : `wrong-answer-${incorrectAnswers.indexOf(element)}`
+                }
+              >
+                {element}
+              </S.Buttons>
+            ))}
+        </S.ContainerAlt>
+        <S.ProxButton>
           {!firstQuestion
             && (
               <button
@@ -119,7 +112,7 @@ class Alternatives extends Component {
 
               </button>
             )}
-        </div>
+        </S.ProxButton>
       </div>
     );
   }
