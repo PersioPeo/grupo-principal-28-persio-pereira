@@ -9,6 +9,7 @@ const Container = styled.div`
   width: 100%;
   position: absolute;
   top: 0;
+  padding: 0 15px;
 
 
   & img{
