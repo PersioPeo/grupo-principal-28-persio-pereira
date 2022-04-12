@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
-background-color:#031029;
-height: 71px;
-display:flex;
-align-items: center;
+
+  background-color: ${({ theme }) => theme.primary};
+  height: 100px;
+  display:flex;
+  align-items: center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+
 
   & img{
     border-radius: 50%;
@@ -23,6 +28,7 @@ align-items: center;
     color: white;
     font-size: 26px;
   }
+
 `;
 
 export default Container;

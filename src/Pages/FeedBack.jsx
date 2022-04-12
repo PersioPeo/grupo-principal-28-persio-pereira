@@ -34,12 +34,22 @@ class FeedBack extends Component {
             {assertions < counterToMessage
               ? 'Could be better...' : 'Well Done!'}
           </span>
-          <span data-testid="feedback-total-question">
-            {(assertions === 1) ? `Você acertou ${assertions} questão!`
-              : `Você acertou ${assertions} questões!`}
+          <span>
+            Você acertou
           </span>
-          <span data-testid="feedback-total-score">
-            { `E fez um total de ${score} pontos`}
+          <span data-testid="feedback-total-question">
+            {assertions}
+          </span>
+
+          {(assertions === 1)
+            ? <p>questão!</p>
+            : <p>questões!</p>}
+
+          <span>
+            {'E fez um total de pontos: '}
+            <span data-testid="feedback-total-score">
+              {score}
+            </span>
           </span>
           <button
             onClick={ () => {

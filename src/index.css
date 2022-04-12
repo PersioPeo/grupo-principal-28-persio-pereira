@@ -21,11 +21,3 @@ code {
   box-sizing: border-box;
   font-size: 16px;
 }
-
-:root {
-  --main-color: #f9f9f9;
-  --secondary-color: #031029;
-  --accent-color: #FFCD29;
-  --azul-light: #aac8ff;
-}
-

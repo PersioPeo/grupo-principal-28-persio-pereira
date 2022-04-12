@@ -15,13 +15,15 @@ class Header extends React.Component {
         />
         <div>
           <p data-testid="header-player-name">
-            {' '}
-            {name}
+            {
+              `${name}, o jogo começou. Você tem 30s por pergunta...`
+            }
           </p>
-          <p data-testid="header-score">
+          <p>
             Pontos:
-            {' '}
-            { score }
+            <span data-testid="header-score">
+              {score}
+            </span>
           </p>
         </div>
       </Container>

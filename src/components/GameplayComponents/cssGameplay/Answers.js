@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ContainerAns = styled.div`
+
   & .head {
     display: flex;
     flex-direction: row-reverse;
@@ -18,18 +19,18 @@ const ContainerAns = styled.div`
   }
 
   & .question {
-   display: flex;
-   background-color: #031029;
-   color: white;
-   height: 100px;
-   align-items: center;
-   justify-content: center;
-   margin: 5px 20px;
-   
+  display: flex;
+  background-color: #031029;
+  color: white;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  margin: 5px 20px;
+  
   & p {
-     font-size: 18px;
-   }
- }
+    font-size: 18px;
+    }
+  }
 `;
 
 export default ContainerAns;
