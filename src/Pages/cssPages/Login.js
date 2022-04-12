@@ -1,87 +1,104 @@
 import styled from 'styled-components';
-
-// root {
-//   --main-color: #f9f9f9;
-//   --secondary-color: #031029;
-//   --accent-color: #FFCD29;
-//   --azul-light: #aac8ff;
-// }
+import back from '../../images/back.jpeg';
 
 export const Container = styled.div`
   align-items: center;
-  background-color: ${({ name }) => ((name === 'container-login')
-    ? '#031029'
-    : '#f9f9f9')
-};
+  background-color: ${(props) => props.theme.main};
   display: flex;
+  justify-content: center;
   flex-direction: column;
   height: 100%;
   width: 100%;
+
+  * {
+    flex-shrink: 1;
+  }
+
+  & .btn-theme {
+    background-color: ${(props) => props.theme.accent};
+    width: 100%;
+    height: 34px;
+    font-size: 18px;
+    font-weight: 600;
+    color: ${(props) => props.theme.green};
+    border: none;
+  }
+
+  & .logo-trivia {
+    max-width: 50%;
+    margin: 30px;
+    animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+  
+  @keyframes shake {
+
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  
 `;
 
 export const ContainerForm = styled.div`
   align-items: center;
-  background-color: var(--main-color);
+  background-color: ${(props) => props.theme.primary};
+  background-image: url${back};
+  color: ${(props) => props.theme.main};
   display: flex;
-  height: 450px;
+  height: 430px;
   justify-content: center;
-  margin: 0 auto;
-  width: 400px;
+  width: 350px;
 `;
 
 export const Form = styled.form`
-  align-items: center;
+
   display: flex;
   flex-direction: column;
   height: 80%;
-  justify-content: space-around;
+  justify-content: space-between;
   min-height: 300px;
   text-align: center;
   width: 70%;
 
   & label {
-
     height: 40px;
     width: 100%;
+    font-weight: 800;
   }
   
   & input {
-
     height: 100%;
     padding: 5px 10px;
     width: 100%;
+    margin-top: 12px;
   }
 
-
-
+  & .btn {
+    background-color: ${(props) => props.theme.accent};
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 600;
+    color: ${(props) => props.theme.green};
+    margin-top: 18px;
+    border: none;
+  
+    &:disabled {
+      color: #f11;
+      font-weight: 700;
+    }
+  }
+  
 `;
-
-
-
-.container__btn {
-  display: flex;
-  flex-direction: column;
-  height: 130px;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.btn__enter {
-  background-color: var(--accent-color);
-  height: 55px;
-  width: 100%;
-}
-
-.btn__config {
-  background-color: var(--secondary-color);
-  color: var(--main-color);
-  height: 55px;
-  text-align: center;
-  width: 100%;
-}
-
-.logo {
-  margin-top: 60px;
-  max-height: 300px;
-  max-width: 90%;
-}

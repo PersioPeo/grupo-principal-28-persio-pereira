@@ -54,7 +54,11 @@ class Home extends React.Component {
     const { gravatarEmail, name, buttonDisable } = this.state;
     return (
       <S.Container name="container-login">
-        <img src={ LogoTrivia } alt="Logo do game" />
+        <img
+          className="logo-trivia"
+          src={ LogoTrivia }
+          alt="Logo do game"
+        />
 
         <S.ContainerForm>
           <S.Form>
@@ -86,10 +90,10 @@ class Home extends React.Component {
                 onChange={ this.changeHandler }
               />
             </label>
-
-            <section>
+            <div className="btn-group">
 
               <button
+                className="btn enter"
                 type="submit"
                 data-testid="btn-play"
                 disabled={ buttonDisable }
@@ -98,6 +102,7 @@ class Home extends React.Component {
                 Entrar
               </button>
               <button
+                className="btn config"
                 name="config"
                 type="button"
                 data-testid="btn-settings"
@@ -105,7 +110,8 @@ class Home extends React.Component {
               >
                 Configurações
               </button>
-            </section>
+
+            </div>
           </S.Form>
         </S.ContainerForm>
       </S.Container>

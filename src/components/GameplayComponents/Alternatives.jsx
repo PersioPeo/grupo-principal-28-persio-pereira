@@ -14,13 +14,18 @@ class Alternatives extends Component {
       isDisabled: false,
       nextQuestion: true,
       firstQuestion: true,
+      alternatives: [],
     };
   }
 
   componentDidMount() {
+    this.startTimer();
+  }
+
+  startTimer = () => {
+    this.sortListOfQuestions();
     const THIRTY = 30000;
     const { dispatch } = this.props;
-
     this.timeoutID = setTimeout(() => {
       dispatch(timerAction());
       this.setState({
@@ -30,13 +35,23 @@ class Alternatives extends Component {
     }, THIRTY);
   }
 
+  sortListOfQuestions = () => {
+    const { correctAnswer, incorrectAnswers } = this.props;
+    this.setState({
+      alternatives: [correctAnswer, ...incorrectAnswers]
+        .sort(() => Math.random() - NUMBER_SORT),
+    });
+  }
+
   handleClick = (event) => {
+    if (event.target.id === 'correct-answer') {
+      this.handleScore();
+    }
+
     const { dispatch } = this.props;
 
     dispatch(timerAction());
     clearTimeout(this.timeoutID);
-
-    if (event.target.id === CORRECT) this.handleScore();
 
     this.setState({
       isDisabled: true,
@@ -67,16 +82,14 @@ class Alternatives extends Component {
   }
 
   render() {
+    const { isDisabled, nextQuestion, firstQuestion, alternatives } = this.state;
     const { correctAnswer, incorrectAnswers } = this.props;
-    const { isDisabled, nextQuestion, firstQuestion } = this.state;
-    const alternatives = [correctAnswer, ...incorrectAnswers];
-
     return (
       <div>
         <S.ContainerAlt
           data-testid="answer-options"
         >
-          {alternatives.sort(() => Math.random() - NUMBER_SORT)
+          {alternatives
             .map((element) => (
               <S.Buttons
                 onClick={ this.handleClick }

@@ -17,10 +17,12 @@ justify-content: space-evenly;
 
   & h1 {
   font-size: 2.5em;
-}
+  }
+
   & span {
   font-size: 1.4em;
   }
+
   & button {
     background-color: var(--secondary-color);
     color: var(--main-color);
@@ -29,6 +31,7 @@ justify-content: space-evenly;
     border: 1px solid var(--main-color);
     
   }
+
 `;
 
 export default Container;
