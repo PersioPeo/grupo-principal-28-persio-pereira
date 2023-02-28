@@ -1,4 +1,5 @@
 # Atualização de ferramenta de comprovação de habilidade :construction: README customizado em construção ! :construction:
+## Proje realiizado em grupo de estudo na trybe para aprimoramento para trabalho em equipe:
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
 
